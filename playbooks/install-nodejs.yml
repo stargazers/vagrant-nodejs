@@ -19,5 +19,5 @@
               shell: /tmp/setup_nodejs.sh
             - name: Refresh APT sources
               apt: update_cache=yes
-            - name: Install NodeJS 8.x from APT-repo¨
+            - name: Install NodeJS 8.x from APT-repo
               apt: name=nodejs state=present
