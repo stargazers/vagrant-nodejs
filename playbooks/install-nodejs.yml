@@ -1,0 +1,16 @@
+---
+    # This playbook will install NodeJS
+
+    - name: install NodeJS
+      hosts: all
+      become: yes
+      become_method: sudo
+      gather_facts: no
+      pre_tasks:
+          - name: Install Python 2 (required for Ansible)
+            raw: sudo apt-get -y install python-simplejson
+      tasks:
+            - name: Update APT cache
+              apt: update_cache=yes
+            - name: Install NodeJS
+              apt: name=nodejs state=present
