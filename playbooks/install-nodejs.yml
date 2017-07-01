@@ -7,10 +7,17 @@
       become_method: sudo
       gather_facts: no
       pre_tasks:
-          - name: Install Python 2 (required for Ansible)
-            raw: sudo apt-get -y install python-simplejson
+          - name: Install Python 2 which is required by Ansible
+            raw: sudo apt-get update && apt-get -y install python-simplejson
       tasks:
-            - name: Update APT cache
+            - name: Download installation script for Node 8.x
+              get_url:
+                  url: https://deb.nodesource.com/setup_8.x
+                  dest: /tmp/setup_nodejs.sh
+                  mode: 0775
+            - name: Udate NodeJS APT-repositories
+              shell: /tmp/setup_nodejs.sh
+            - name: Refresh APT sources
               apt: update_cache=yes
-            - name: Install NodeJS
+            - name: Install NodeJS 8.x from APT-repo¨
               apt: name=nodejs state=present
